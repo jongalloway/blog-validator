@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34825.169
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogValidator", "GithubActionTest\BlogValidator.csproj", "{B433690D-9777-4A14-AEB2-540D84E1B776}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogValidator", "BlogValidator\BlogValidator.csproj", "{B433690D-9777-4A14-AEB2-540D84E1B776}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
