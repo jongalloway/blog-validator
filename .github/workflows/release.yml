@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:  # this line is all you need to add
+
+env:
+  IMAGE_NAME: jongalloway/blog-validator
+  BASE_IMAGE: mcr.microsoft.com/dotnet/nightly/runtime-deps:8.0-jammy-chiseled-aot
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@main
+
+      - name: Get the version
+        run: echo "RELEASE_VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+
+      - uses: actions/setup-dotnet@main
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish app
+        working-directory: ./BlogValidator
+        run: |
+          dotnet publish \
+            /t:PublishContainer \
+            -p DebugType=none \
+            -p ContainerBaseImage=${{ env.BASE_IMAGE }} \
+            -p ContainerRegistry=ghcr.io \
+            -p ContainerImageTags='"latest;${{ env.RELEASE_VERSION }}"' \
+            -p ContainerRepository=${{ env.IMAGE_NAME }} \
+            -bl
+
+      - uses: actions/upload-artifact@main
+        if: always()
+        with:
+          name: msbuild.binlog
+          path: BlogValidator/msbuild.binlog
