@@ -1,11 +1,12 @@
 ﻿using Markdig;
+using Markdig.Syntax;
 
 namespace BlogValidator.Models
 {
     internal class ValidationContext
     {
         private string MarkdownText { get; set; }
-        private Markdig.Syntax.MarkdownDocument MarkdownDocument { get; set; }
+        private MarkdownDocument MarkdownDocument { get; set; }
         public string Filename { get; set; }
         public string ValidationMessage { get; set; }
         public string ValidationSuggestion { get; set; }
@@ -19,7 +20,7 @@ namespace BlogValidator.Models
 
             // create a markdig documennt parser with yaml front matter extension
 
-            var parser = new Markdig.MarkdownPipelineBuilder()
+            var parser = new MarkdownPipelineBuilder()
                 .UseAdvancedExtensions()
                 .UseYamlFrontMatter()
                 .Build();
