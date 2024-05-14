@@ -11,7 +11,23 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <PublishSingleFile>true</PublishSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
-      </PropertyGroup>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ContainerUser>root</ContainerUser>
+    <ContainerDescription>Blog Validator: A sample GitHub Action that validates markdown blog posts.</ContainerDescription>
+    <ContainerAuthors>Jon Galloway</ContainerAuthors>
+    <ContainerInformationUrl>
+      http://github.com/jongalloway/blog-validator
+    </ContainerInformationUrl>
+    <ContainerDocumentationUrl>
+      http://github.com/jongalloway/blogvalidator
+    </ContainerDocumentationUrl>
+    <ContainerLicenseExpression>
+      http://github.com/jongalloway/blog-validator/blob/main/LICENSE
+    </ContainerLicenseExpression>
+  </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="GitHub.Actions.Octokit" Version="8.0.14" />
