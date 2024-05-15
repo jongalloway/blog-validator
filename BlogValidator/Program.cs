@@ -19,7 +19,7 @@ var repoName = repository[1];
 
 var pullRequestNumber = int.Parse(Environment.GetEnvironmentVariable("GITHUB_REF_NAME")?.Split('/')[0] ?? "1");
 
-var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? "";
+var token = Environment.GetEnvironmentVariable("INPUT_TOKEN") ?? Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? "";
 var request = RequestAdapter.Create(new TokenAuthenticationProvider("Octokit.Gen", token));
 var gitHubClient = new GitHubClient(request);
 
