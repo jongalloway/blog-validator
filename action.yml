@@ -1,0 +1,10 @@
+name: 'Blog Validator'
+description: 'Validates a blog post pull request written in markdown according to a set of rules'
+inputs:
+  token:
+    description:
+      'The GitHub token used to update the issue or pull request. Example, secrets.GITHUB_TOKEN, with '
+    required: true
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/jongalloway/blog-validator:latest'    
