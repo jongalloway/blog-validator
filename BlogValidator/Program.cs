@@ -8,9 +8,16 @@ using Markdig;
 Console.OutputEncoding = System.Text.Encoding.Unicode;
 Console.WriteLine("🔥Here we go!🔥");
 
-var repoOwner = Environment.GetEnvironmentVariable("GITHUB_REPOSITORY_OWNER") ?? "jongalloway";
-var repoName = Environment.GetEnvironmentVariable("GITHUB_REPOSITORY_NAME") ?? "fake-blog";
-var pullRequestNumber = int.Parse(Environment.GetEnvironmentVariable("GITHUB_PULL_REQUEST_NUMBER") ?? "1");
+// Populate the repoOwner and repoName from environment variables. These are set by GitHub Actions. The repoOwner and repoName need to be parsed from GITHUB_REPOSITORY, which is in the format owner/repo.
+
+var repository = Environment.GetEnvironmentVariable("GITHUB_REPOSITORY")?.Split('/') ?? new string[] { "jongalloway", "fake-blog" };
+
+var repoOwner = repository[0];
+var repoName = repository[1];
+
+// Get the pull request number from the environment variable. This is set by GitHub Actions. The environment variable is GITHUB_REF_NAME and is in the format of :pr_number/merge. Parse the pull request number from the string.
+
+var pullRequestNumber = int.Parse(Environment.GetEnvironmentVariable("GITHUB_REF_NAME")?.Split('/')[0] ?? "1");
 
 var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN") ?? "";
 var request = RequestAdapter.Create(new TokenAuthenticationProvider("Octokit.Gen", token));
