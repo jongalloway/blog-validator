@@ -45,7 +45,14 @@ else
     // Get the first markdown file
     var markdownFile = markdownFiles.FirstOrDefault();
 
+    // Console write out the markdown file sha
+    Console.WriteLine($"Markdown file SHA: {markdownFile.Sha}");
+
     var markdownFileContent = await gitHubClient.Repos[repoOwner][repoName].Git.Blobs[markdownFile.Sha].GetAsync();
+
+    // Console writeline the markdown file content length
+    Console.WriteLine($"Markdown file content length: {markdownFileContent.Content.Length}");
+
     var markdownFileText = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(markdownFileContent.Content));
     Console.WriteLine(markdownFileText);
 
