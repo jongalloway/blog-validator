@@ -52,7 +52,17 @@ else
     // Console write out the markdown file sha
     Console.WriteLine($"Markdown file SHA: {markdownFile.Sha}");
 
-    var markdownFileContent = await gitHubClient.Repos[repoOwner][repoName].Git.Blobs[markdownFile.Sha].GetAsync();
+    try
+    {
+        var markdownFileContent = await gitHubClient.Repos[repoOwner][repoName].Git.Blobs[markdownFile.Sha].GetAsync();
+    }
+    catch (GitHub.Models.BasicError e)
+    {
+        // Write out specific information for this excption type with message, status code, and documentation URL
+        Console.WriteLine($"❌ Error: {e.Message}");
+        Console.WriteLine($"Status code: {e.ResponseStatusCode}");
+        Console.WriteLine($"Documentation URL: {e.DocumentationUrl}");
+    }
 
     // Console writeline the markdown file content length
     Console.WriteLine($"Markdown file content length: {markdownFileContent.Content.Length}");
