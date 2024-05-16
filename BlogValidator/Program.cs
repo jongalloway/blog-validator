@@ -45,6 +45,10 @@ else
     // Get the first markdown file
     var markdownFile = markdownFiles.FirstOrDefault();
 
+    // Console write out that we got the markdown file
+    Console.WriteLine("✅ Got the markdown file");
+    Console.WriteLine($"Markdown file: {markdownFile.Filename}");
+
     // Console write out the markdown file sha
     Console.WriteLine($"Markdown file SHA: {markdownFile.Sha}");
 
