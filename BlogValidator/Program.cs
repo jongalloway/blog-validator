@@ -52,9 +52,11 @@ else
     // Console write out the markdown file sha
     Console.WriteLine($"Markdown file SHA: {markdownFile.Sha}");
 
+    var markdownFileContent = new GitHub.Models.Blob();
+
     try
     {
-        var markdownFileContent = await gitHubClient.Repos[repoOwner][repoName].Git.Blobs[markdownFile.Sha].GetAsync();
+        markdownFileContent = await gitHubClient.Repos[repoOwner][repoName].Git.Blobs[markdownFile.Sha].GetAsync();
     }
     catch (GitHub.Models.BasicError e)
     {
